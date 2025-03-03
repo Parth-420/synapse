@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
-import { generateEmbedding, generateAnswer } from '@/lib/openai';
-import { SearchResult, SearchResponse } from '@/lib/types';
+import { generateEmbedding } from '@/lib/gemini';
+import { Entry, SearchResult, SearchResponse } from '@/lib/types';
+import { WithId, Document } from 'mongodb';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
@@ -34,9 +37,16 @@ export async function GET(request: NextRequest) {
     // Calculate cosine similarity between query and each entry
     // This is a simplified approach - in production use MongoDB's vector search
     const results: SearchResult[] = entries.map(entry => {
-      const similarity = cosineSimilarity(queryEmbedding, entry.embedding || []);
+      // Cast MongoDB document to Entry type
+      const entryWithId = entry as unknown as WithId<Entry>;
+      const similarity = cosineSimilarity(queryEmbedding, entryWithId.embedding || []);
       return {
-        entry,
+        entry: {
+          ...entryWithId,
+          _id: entryWithId._id.toString(),
+          createdAt: new Date(entryWithId.createdAt),
+          updatedAt: new Date(entryWithId.updatedAt)
+        },
         score: similarity
       };
     });
@@ -47,9 +57,8 @@ export async function GET(request: NextRequest) {
     // Take top 5 results
     const topResults = results.slice(0, 5);
     
-    // Generate AI answer based on top results
-    const contextTexts = topResults.map(result => result.entry.content);
-    const answer = await generateAnswer(query, contextTexts);
+    // Generate a simple answer based on top results
+    const answer = `Found ${topResults.length} relevant entries.`;
     
     const response: SearchResponse = {
       results: topResults,

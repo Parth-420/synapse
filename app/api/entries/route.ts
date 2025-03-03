@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
-import { generateEmbedding } from '@/lib/openai';
+import { generateEmbedding } from '@/lib/gemini';
 import { Entry } from '@/lib/types';
+import { ObjectId } from 'mongodb';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,8 +21,8 @@ export async function POST(request: NextRequest) {
     // Generate embedding for the content
     const embedding = await generateEmbedding(content);
     
-    // Create entry object
-    const entry: Entry = {
+    // Create entry object without _id (MongoDB will generate it)
+    const entry: Omit<Entry, '_id'> = {
       userId,
       type,
       title,
@@ -40,7 +43,7 @@ export async function POST(request: NextRequest) {
     
     return NextResponse.json({ 
       success: true, 
-      id: result.insertedId 
+      id: result.insertedId.toString()
     });
   } catch (error) {
     console.error('Error creating entry:', error);
