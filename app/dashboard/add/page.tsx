@@ -14,21 +14,22 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { ContentType } from "@/lib/types";
+import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
-  type: z.enum(["quote", "snippet", "link", "note"] as const),
+  type: z.enum(["quote", "link", "note"] as const),
   content: z.string().min(1, "Content is required"),
   source: z.string().optional(),
   tags: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
-
 export default function AddContentPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
+  const { data: session } = useSession();
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -57,7 +58,7 @@ export default function AddContentPage() {
         body: JSON.stringify({
           ...values,
           tags: tagsArray,
-          userId: "user123", // In a real app, this would come from authentication
+          userId: session?.user?.id || "user123", // Use authenticated user ID
         }),
       });
       
@@ -137,7 +138,6 @@ export default function AddContentPage() {
                       </FormControl>
                       <SelectContent className="bg-[#111111] border-[#333333] text-white">
                         <SelectItem value="quote" className="focus:bg-[#222222] focus:text-white">Quote</SelectItem>
-                        <SelectItem value="snippet" className="focus:bg-[#222222] focus:text-white">Snippet</SelectItem>
                         <SelectItem value="link" className="focus:bg-[#222222] focus:text-white">Link</SelectItem>
                         <SelectItem value="note" className="focus:bg-[#222222] focus:text-white">Note</SelectItem>
                       </SelectContent>

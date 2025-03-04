@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
 import { generateEmbedding } from '@/lib/gemini';
 import { Entry } from '@/lib/types';
-import { ObjectId } from 'mongodb';
+// import { ObjectId } from 'mongodb';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     const embedding = await generateEmbedding(content);
     
     // Create entry object without _id (MongoDB will generate it)
-    const entry: Omit<Entry, '_id'> = {
+    const entry :Entry = {
       userId,
       type,
       title,

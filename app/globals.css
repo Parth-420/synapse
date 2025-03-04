@@ -93,7 +93,7 @@
 .dark .bg-grid-pattern {
   background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    linear-gradient( to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
 }
 
 /* Glow effects */
@@ -165,4 +165,64 @@
 
 .hero-gradient {
   background: radial-gradient(circle at 50% 50%, rgba(138, 75, 255, 0.1), transparent 70%);
+}
+
+/* Editor styles */
+[contenteditable]:empty:before {
+  content: attr(placeholder);
+  color: rgba(255, 255, 255, 0.3);
+  font-style: italic;
+  cursor: text;
+}
+
+[contenteditable]:focus {
+  outline: none;
+}
+
+[contenteditable] h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+[contenteditable] h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+[contenteditable] ul, 
+[contenteditable] ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+[contenteditable] ul {
+  list-style-type: disc;
+}
+
+[contenteditable] ol {
+  list-style-type: decimal;
+}
+
+[contenteditable] blockquote {
+  border-left: 3px solid rgba(138, 75, 255, 0.5);
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+[contenteditable] code {
+  font-family: monospace;
+  background-color: rgba(30, 30, 40, 0.5);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+[contenteditable] a {
+  color: #a78bfa;
+  text-decoration: underline;
 }

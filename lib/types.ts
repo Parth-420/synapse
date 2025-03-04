@@ -1,7 +1,7 @@
-export type ContentType = 'quote' | 'snippet' | 'link' | 'note';
+export type ContentType = 'quote' | 'link' | 'note';
 
 export interface Entry {
-  _id?: string;
+  
   userId: string;
   type: ContentType;
   content: string;

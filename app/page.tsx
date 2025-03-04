@@ -126,7 +126,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold mb-3">Universal Storage</h3>
                 <p className="text-white/70">
-                  Save any type of content including quotes, text snippets, links, notes, and more in your personal knowledge base.
+                  Save any type of content including quotes, notes, links, and more in your personal knowledge base.
                 </p>
               </div>
               
@@ -192,7 +192,7 @@ export default function Home() {
                     </div>
                     <div className="flex-1">
                       <div className="flex justify-between items-center">
-                        <span className="font-medium">Code Snippet</span>
+                        <span className="font-medium">Note</span>
                         <span className="text-xs text-white/50">2h ago</span>
                       </div>
                       <div className="text-sm text-white/60">const brain = new SecondBrain();</div>
@@ -272,7 +272,7 @@ export default function Home() {
                 <AccordionItem value="item-4" className="border-[#333333]">
                   <AccordionTrigger className="text-white hover:text-white/90">What types of content can I store?</AccordionTrigger>
                   <AccordionContent className="text-white/70">
-                    You can store quotes, text snippets, links, notes, and more. Synapse is designed to be flexible, 
+                    You can store quotes, notes, links, and more. Synapse is designed to be flexible, 
                     so you can save any type of textual information that's important to you.
                   </AccordionContent>
                 </AccordionItem>
