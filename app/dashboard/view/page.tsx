@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Brain, Quote, FileText, Link as LinkIcon, StickyNote, Calendar, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

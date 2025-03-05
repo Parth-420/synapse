@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Brain, Search, BookOpen, Tag, Quote, FileText, ArrowRight, Github, Twitter, Linkedin } from 'lucide-react';
+import { Brain, Search, Tag, Quote, FileText, Github, Twitter, Linkedin } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,

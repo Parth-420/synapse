@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Synapse - Your Second Brain',
   description: 'Store and query your personal knowledge with AI-powered semantic search',
+  icons: {
+    icon: "/favicon.ico", 
+  }
 };
 
 export default function RootLayout({
