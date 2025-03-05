@@ -27,7 +27,7 @@ export default function Home() {
                 <a href="#features" className="text-sm font-medium text-white/70 hover:text-white">
                   Features
                 </a>
-                <Link href="https://github.com" className="text-sm font-medium text-white/70 hover:text-white">
+                <Link href="https://github.com/Parth-420/synapse" className="text-sm font-medium text-white/70 hover:text-white">
                   Github
                 </Link>
               </div>
@@ -49,7 +49,7 @@ export default function Home() {
           {/* GitHub button */}
           <div className="absolute top-32 z-10 flex justify-center w-full">
             <a 
-              href="https://github.com" 
+              href="https://github.com/Parth-420/synapse" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#111111]/80 backdrop-blur-md border border-[#333333]/50 hover:bg-[#222222]/80 transition-all"
@@ -62,17 +62,15 @@ export default function Home() {
             </a>
           </div>
           
-          {/* Gradient overlay */}
           <div className="absolute inset-0 hero-gradient"></div>
           
           <div className="container px-4 md:px-6 relative z-10 flex flex-col items-center text-center space-y-8 mt-16">
             <div className="space-y-4 max-w-4xl">
               <h1 className="text-5xl md:text-7xl font-bold tracking-tighter glow-text">
-                Wake Up Your <span className="text-purple-400">Second Brain</span>
+               Wake Up Your <span className="text-purple-400">Second Brain</span>
               </h1>
               <p className="mx-auto max-w-[700px] text-xl text-white/70 md:text-2xl">
-                Store, connect, and retrieve your personal knowledge with AI-powered semantic search.
-                Never lose an important thought, quote, or link again.
+              Store, connect, and retrieve your personal knowledge. Have natural conversations with your stored knowledge. Never lose an important thought, quote, or link again.
               </p>
             </div>
             
@@ -83,10 +81,10 @@ export default function Home() {
                   Start Adding Content
                 </Button>
               </Link>
-              <Link href="/dashboard/search">
+              <Link href="/dashboard/chat">
                 <Button size="lg" variant="outline" className="gap-2 bg-transparent border-[#333333] hover:bg-[#333333]/50 glow-button">
-                  <Search className="h-4 w-4" />
-                  Search Your Brain
+                  <Brain className="h-4 w-4" />
+                  Chat with Brain
                 </Button>
               </Link>
             </div>
@@ -97,16 +95,16 @@ export default function Home() {
             
             <div className="flex items-center gap-8 pt-4">
               <div className="flex items-center gap-2">
-                <Search className="h-4 w-4 text-purple-400" />
-                <span className="text-white/80">Semantic Search</span>
+                <Brain className="h-4 w-4 text-purple-400" />
+                <span className="text-white/80">AI-Powered Chat</span>
               </div>
               <div className="flex items-center gap-2">
                 <Brain className="h-4 w-4 text-purple-400" />
-                <span className="text-white/80">AI-Powered</span>
+                <span className="text-white/80">Natural Conversations</span>
               </div>
               <div className="flex items-center gap-2">
                 <Tag className="h-4 w-4 text-purple-400" />
-                <span className="text-white/80">Smart Tagging</span>
+                <span className="text-white/80">Smart Memory</span>
               </div>
             </div>
           </div>
@@ -126,7 +124,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold mb-3">Universal Storage</h3>
                 <p className="text-white/70">
-                  Save any type of content including quotes, notes, links, and more in your personal knowledge base.
+                  Save any type of content including quotes, text snippets, links, notes, and more in your personal knowledge base.
                 </p>
               </div>
               
@@ -192,7 +190,7 @@ export default function Home() {
                     </div>
                     <div className="flex-1">
                       <div className="flex justify-between items-center">
-                        <span className="font-medium">Note</span>
+                        <span className="font-medium">Code Snippet</span>
                         <span className="text-xs text-white/50">2h ago</span>
                       </div>
                       <div className="text-sm text-white/60">const brain = new SecondBrain();</div>
@@ -272,7 +270,7 @@ export default function Home() {
                 <AccordionItem value="item-4" className="border-[#333333]">
                   <AccordionTrigger className="text-white hover:text-white/90">What types of content can I store?</AccordionTrigger>
                   <AccordionContent className="text-white/70">
-                    You can store quotes, notes, links, and more. Synapse is designed to be flexible, 
+                    You can store quotes, text snippets, links, notes, and more. Synapse is designed to be flexible, 
                     so you can save any type of textual information that's important to you.
                   </AccordionContent>
                 </AccordionItem>
@@ -322,13 +320,13 @@ export default function Home() {
             &copy; {new Date().getFullYear()} Synapse. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white/80 transition-colors">
+            <a href="https://github.com/Parth-420/synapse" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white/80 transition-colors">
               <Github className="h-5 w-5" />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white/80 transition-colors">
+            <a href="https://x.com/parthh_07" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white/80 transition-colors">
               <Twitter className="h-5 w-5" />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white/80 transition-colors">
+            <a href="https://linkedin.com/in/parth-gupta-0b8417166/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white/80 transition-colors">
               <Linkedin className="h-5 w-5" />
             </a>
             <div className="hidden md:block border-l border-[#333333] h-5 mx-2"></div>

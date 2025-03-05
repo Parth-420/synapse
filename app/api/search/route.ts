@@ -11,6 +11,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
   // Verify user is authenticated
   const session = await getServerSession(authOptions);
+  console.log(session);
   
   if (!session || !session.user) {
     return NextResponse.json(
@@ -45,18 +46,18 @@ export async function GET(request: NextRequest) {
     // Connect to MongoDB
     const client = await clientPromise;
     const db = client.db('synapse');
-    
+    // const coll = db.collection("entries");
     let searchResults;
     try {
       // Execute vector search using MongoDB Atlas Vector Search
       const pipeline = [
         {
           $vectorSearch: {
-            index: "vector_index",
+            index: "default",
             queryVector: queryEmbedding,
             path: "embedding",
             numCandidates: 100,
-            limit: 5
+            limit: 1
           }
         },
         {
@@ -86,8 +87,8 @@ export async function GET(request: NextRequest) {
       // Return a specific error for vector search failure
       return NextResponse.json(
         { 
-          error: 'Vector search not supported', 
-          message: 'Your MongoDB Atlas configuration does not support vector search. Please upgrade your MongoDB Atlas cluster or configure vector search properly.'
+          error: 'Vector search not available', 
+          message: 'Your MongoDB Atlas configuration could not vector search.'
         },
         { status: 400 }
       );
@@ -106,6 +107,11 @@ export async function GET(request: NextRequest) {
       
       // Only include relevant content, not the userId
       let contextText = entry.content || '';
+      
+      // Strip HTML tags if content appears to contain HTML using a regex
+      if (contextText.includes('<') && contextText.includes('>')) {
+        contextText = contextText.replace(/<[^>]*>/g, ' ').replace(/\s\s+/g, ' ').trim();
+      }
       
       if (entry.title) {
         contextText = `Title: ${entry.title}\n${contextText}`;

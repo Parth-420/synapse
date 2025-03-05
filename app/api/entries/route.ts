@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { title, type, content, source, tags, userId } = body;
+    const { title, type, content, plainText, source, tags, userId } = body;
     
     if (!title || !type || !content || !userId) {
       return NextResponse.json(
@@ -18,8 +18,9 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Generate embedding for the content
-    const embedding = await generateEmbedding(content);
+    // Generate embedding for the content - use plainText if available for better embedding quality
+    const textForEmbedding = plainText || content;
+    const embedding = await generateEmbedding(textForEmbedding);
     
     // Create entry object without _id (MongoDB will generate it)
     const entry :Entry = {

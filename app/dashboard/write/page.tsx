@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { useSession } from "next-auth/react";
 
 // Tiptap imports
 import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
@@ -37,6 +38,7 @@ export default function WritePage() {
   const [showLinkInput, setShowLinkInput] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
+  const { data: session } = useSession();
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -102,8 +104,19 @@ export default function WritePage() {
     setIsSubmitting(true);
     
     try {
-      // For development, using a fixed user ID
-      const userId = "dev-user-123";
+      if (!session?.user?.id) {
+        toast({
+          title: "Authentication Error",
+          description: "You must be logged in to save entries.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      // Extract plain text from HTML for better embedding generation
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = values.content;
+      const plainTextContent = tempDiv.textContent || tempDiv.innerText || values.content;
       
       const response = await fetch("/api/entries", {
         method: "POST",
@@ -114,7 +127,8 @@ export default function WritePage() {
           title: values.title,
           type: "note",
           content: values.content,
-          userId: userId,
+          plainText: plainTextContent, // Add plainText field for embedding generation
+          userId: session.user.id,
         }),
       });
       

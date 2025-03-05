@@ -174,8 +174,8 @@ export default function DashboardPage() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
             <Card className="col-span-4 bg-[#111111] border-[#333333] text-white">
               <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-                <CardDescription className="text-white/60">
+                <CardTitle className="text-xl font-semibold tracking-tight">Recent Activity</CardTitle>
+                <CardDescription className="text-white/60 text-[13px]">
                   Your recent interactions with your knowledge base
                 </CardDescription>
               </CardHeader>
@@ -189,18 +189,18 @@ export default function DashboardPage() {
                     No recent activity to display
                   </div>
                 ) : (
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     {entries.slice(0, 3).map((entry, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <div className="bg-[#222222] p-2 rounded-full">
+                      <div key={index} className="flex items-start gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors">
+                        <div className="bg-[#222222] p-2.5 rounded-full shrink-0">
                           {getContentTypeIcon(entry.type)}
                         </div>
-                        <div className="flex-1">
-                          <div className="flex justify-between items-center">
-                            <span className="font-medium text-sm">{entry.title}</span>
-                            <span className="text-xs text-white/50">{formatDate(entry.createdAt.toString())}</span>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between items-center gap-2">
+                            <span className="font-semibold text-[15px] leading-none text-white/90 truncate font-inter">{entry.title}</span>
+                            <span className="text-[12px] leading-none text-white/50 font-medium shrink-0 tabular-nums">{formatDate(entry.createdAt.toString())}</span>
                           </div>
-                          <p className="text-xs text-white/60 line-clamp-1">{entry.content}</p>
+                          <p className="text-[14px] leading-relaxed text-white/70 mt-2 line-clamp-1 font-normal font-inter">{entry.content}</p>
                         </div>
                       </div>
                     ))}

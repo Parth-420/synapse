@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import { Brain, Plus, Search, LayoutDashboard, Edit, LogOut, User } from 'lucide-react';
+import { Brain, Plus, Search, LayoutDashboard, Edit, LogOut, User,Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -24,7 +24,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col bg-black text-white">
       <header className="sticky top-0 z-50 w-full border-b border-[#222222] bg-black/95 backdrop-blur supports-[backdrop-filter]:bg-black/60">
-        <div className="container flex h-14 items-center">
+        <div className="container flex h-14 items-center px-4">
           <div className="mr-4 flex items-center gap-2">
             <Brain className="h-6 w-6 text-purple-400" />
             <Link href="/" className="font-bold">
@@ -76,35 +76,41 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 Chat
               </Button>
             </Link>
+            <Link href="/dashboard/view">
+              <Button variant="ghost" className="w-full justify-start gap-2 text-white/80 hover:text-white hover:bg-[#222222]">
+                <Eye className="h-4 w-4" />
+                View
+              </Button>
+            </Link>
           </nav>
           
           <div className="mt-auto">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="w-full px-2 py-6 justify-start gap-3 text-white/80 hover:text-white hover:bg-[#222222] rounded-lg transition-all duration-200">
-                  <Avatar className="h-9 w-9 border-2 border-purple-500/50">
+                <Button variant="ghost" className="w-full h-[48px] px-2.5 justify-start gap-2.5 text-white/80 hover:text-white hover:bg-[#222222] rounded-lg transition-all duration-200">
+                  <Avatar className="h-7 w-7 border border-purple-500/50">
                     <AvatarImage src={session?.user?.image || ''} />
-                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white">
+                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white text-xs font-medium">
                       {getInitials(session?.user?.name)}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="flex flex-col items-start">
-                    <span className="font-medium text-sm">{session?.user?.name || 'User'}</span>
-                    <span className="text-xs text-white/60">{session?.user?.email || ''}</span>
+                  <div className="flex flex-col items-start justify-center min-h-[32px]">
+                    <span className="font-medium text-[14.5px] leading-tight">{session?.user?.name || 'User'}</span>
+                    <span className="text-[12.5px] leading-tight text-white/50">{session?.user?.email || ''}</span>
                   </div>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-[200px] bg-[#111111] border-[#333333] text-white">
-                <DropdownMenuItem className="focus:bg-[#222222] focus:text-white cursor-pointer">
+              <DropdownMenuContent align="end" sideOffset={6} className="w-[200px] bg-[#111111] border-[#333333] text-white p-1.5">
+                <DropdownMenuItem className="flex items-center px-2 py-1.5 focus:bg-[#222222] focus:text-white cursor-pointer rounded-sm text-white/80 hover:text-white">
                   <User className="mr-2 h-4 w-4" />
-                  <span>View Profile</span>
+                  <span className="font-medium text-[13px]">View Profile</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                   onClick={() => signOut({ callbackUrl: '/' })}
-                  className="focus:bg-[#222222] focus:text-white cursor-pointer text-red-400 hover:text-red-400"
+                  className="flex items-center px-2 py-1.5 focus:bg-[#222222] focus:text-white cursor-pointer text-red-400 hover:text-red-400 font-medium rounded-sm mt-0.5"
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Sign Out</span>
+                  <span className="text-[13px]">Sign Out</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
