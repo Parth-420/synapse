@@ -20,10 +20,10 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const suggestedPrompts = [
-  "Your last vacation",
-  "A special birthday",
-  "A funny moment",
-  "Your favorite place",
+  "A quote that inspired you recently",
+  "That youtube video you liked",
+  "Your mood on 7th Feb 2025",
+  "That devops interview you read",
 ];
 
 export default function ChatPage() {

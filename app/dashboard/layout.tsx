@@ -39,12 +39,32 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                   <span className="hidden sm:inline">Add</span>
                 </Button>
               </Link>
-              <Link href="/dashboard/search">
-                <Button variant="ghost" size="sm" className="gap-1 text-white/80 hover:text-white hover:bg-[#222222]">
-                  <Search className="h-4 w-4" />
-                  <span className="hidden sm:inline">Search</span>
-                </Button>
-              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="gap-2 text-white/80 hover:text-white hover:bg-[#222222]">
+                    <Avatar className="h-6 w-6 border border-purple-500/50">
+                      <AvatarImage src={session?.user?.image || ''} />
+                      <AvatarFallback className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white text-xs font-medium">
+                        {getInitials(session?.user?.name)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="hidden sm:inline">{session?.user?.name || 'User'}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" sideOffset={6} className="w-[200px] bg-[#111111] border-[#333333] text-white p-1.5">
+                  <DropdownMenuItem className="flex items-center px-2 py-1.5 focus:bg-[#222222] focus:text-white cursor-pointer rounded-sm text-white/80 hover:text-white">
+                    <User className="mr-2 h-4 w-4" />
+                    <span className="font-medium text-[13px]">View Profile</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem 
+                    onClick={() => signOut({ callbackUrl: '/' })}
+                    className="flex items-center px-2 py-1.5 focus:bg-[#222222] focus:text-white cursor-pointer text-red-400 hover:text-red-400 font-medium rounded-sm mt-0.5"
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span className="text-[13px]">Sign Out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </nav>
           </div>
         </div>
@@ -83,38 +103,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               </Button>
             </Link>
           </nav>
-          
-          <div className="mt-auto">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="w-full h-[48px] px-2.5 justify-start gap-2.5 text-white/80 hover:text-white hover:bg-[#222222] rounded-lg transition-all duration-200">
-                  <Avatar className="h-7 w-7 border border-purple-500/50">
-                    <AvatarImage src={session?.user?.image || ''} />
-                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-indigo-600 text-white text-xs font-medium">
-                      {getInitials(session?.user?.name)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col items-start justify-center min-h-[32px]">
-                    <span className="font-medium text-[14.5px] leading-tight">{session?.user?.name || 'User'}</span>
-                    <span className="text-[12.5px] leading-tight text-white/50">{session?.user?.email || ''}</span>
-                  </div>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" sideOffset={6} className="w-[200px] bg-[#111111] border-[#333333] text-white p-1.5">
-                <DropdownMenuItem className="flex items-center px-2 py-1.5 focus:bg-[#222222] focus:text-white cursor-pointer rounded-sm text-white/80 hover:text-white">
-                  <User className="mr-2 h-4 w-4" />
-                  <span className="font-medium text-[13px]">View Profile</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                  onClick={() => signOut({ callbackUrl: '/' })}
-                  className="flex items-center px-2 py-1.5 focus:bg-[#222222] focus:text-white cursor-pointer text-red-400 hover:text-red-400 font-medium rounded-sm mt-0.5"
-                >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span className="text-[13px]">Sign Out</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
         </aside>
         <main className="flex-1 p-6 bg-[#0A0A0A]">{children}</main>
       </div>
