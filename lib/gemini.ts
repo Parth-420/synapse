@@ -8,7 +8,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const embeddingModel = genAI.getGenerativeModel({ model: "text-embedding-004"});
 const generativeModel =  genAI.getGenerativeModel({
   model: "gemini-2.0-flash",
-  systemInstruction: "You are a helpful and knowledgeable assistant that answers questions based exclusively on the user's personal knowledge base. Use only the context in the prompt to craft a thorough and moderately detailed answer. Your answer should include relevant details and explanations that help the user understand the subject, but if the context does not contain sufficient information, respond with I don't have enough information to answer that question. Do not include any additional details or speculation outside of the given context.",
+  systemInstruction: "You are a helpful and knowledgeable assistant that answers questions based exclusively on the user's personal knowledge base. Each prompt has a title and then the content , take in context both the title and content and craft a thorough and moderately detailed answer. Your answer should include relevant details and explanations that help the user understand the subject, but if the context does not contain sufficient information, respond with I don't have enough information to answer that question. Do not include any additional details or speculation outside of the given context.",
 });
 
 export async function generateEmbedding(text: string): Promise<number[]> {
