@@ -38,6 +38,7 @@ export async function GET(request: NextRequest) {
       { status: 403 }
     );
   }
+  
 
   try {
     // Generate embedding for the query
@@ -49,6 +50,8 @@ export async function GET(request: NextRequest) {
     // const coll = db.collection("entries");
     let searchResults;
     try {
+      // await db.collection('entries').createIndex({ title: "text" });
+
       // Execute vector search using MongoDB Atlas Vector Search
       const pipeline = [
         {
@@ -57,12 +60,13 @@ export async function GET(request: NextRequest) {
             queryVector: queryEmbedding,
             path: "embedding",
             numCandidates: 100,
-            limit: 1
+            limit: 5
           }
         },
         {
           $match: {
-            userId: userId
+            userId: userId,
+            // $text: { $search: Text } 
           }
         },
         {
@@ -81,6 +85,7 @@ export async function GET(request: NextRequest) {
       ];
       
       searchResults = await db.collection('entries').aggregate(pipeline).toArray();
+      // console.log(searchResults);
     } catch (vectorSearchError) {
       console.error('Vector search error:', vectorSearchError);
       
@@ -127,7 +132,7 @@ export async function GET(request: NextRequest) {
       
       return contextText;
     });
-    
+    // console.log(context);
     // Generate answer using Gemini
     const answer = await generateAnswer(query, context);
     

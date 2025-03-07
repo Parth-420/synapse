@@ -17,9 +17,16 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+    // console.log(body);
     
+
     // Generate embedding for the content - use plainText if available for better embedding quality
-    const textForEmbedding = plainText || content;
+    let textForEmbedding;
+    if (plainText){
+       textForEmbedding = `Title: ${title}. Content: ${plainText}` 
+      }else{
+        textForEmbedding = `Title: ${title}. Content: ${content}`
+      }
     const embedding = await generateEmbedding(textForEmbedding);
     
     // Create entry object without _id (MongoDB will generate it)
